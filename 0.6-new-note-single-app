@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant browser
+    participant server
+
+    Note right of browser: User inputs the new note and press send
+
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate server
+    
+    Note right of browser: The browser code updates appends element
+
+    server-->>browser: Response: {"message":"note created"}
+    
+    Note left of server: The server confirms the request 
+    
+    deactivate server
