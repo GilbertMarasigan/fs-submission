@@ -2,20 +2,26 @@ sequenceDiagram
     participant browser
     participant server
 
+    Note right of browser: User types the new note on input box and clicks Send
+
     browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
     activate server
+    
+
     server-->>browser: HTML document
+    
+    Note left of server: The server starts sending back the updated html document, css and data.json
+    
     deactivate server
 
-    Note right of browser: The browser starts executing the JavaScript code that sends the new note to the server
+    
 
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
     server-->>browser: the css file
     deactivate server
 
-    Note right of server: The server starts sending back the updated html document, css and data.json
-
+   
     browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
     activate server
     server-->>browser: the JavaScript file
