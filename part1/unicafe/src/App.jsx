@@ -15,18 +15,43 @@ const Button = ({ handleClick, text }) => {
 }
 
 const Stat = ({ feedback }) => {
-  console.log(feedback)
+
+  console.log({ feedback })
+
+  const sum = Object.values(feedback).reduce((acc, value) => acc + value, 0)
+  const average = sum / 3
+  const positive = (sum !== 0) ? (feedback.good / sum) * 100 : null
+
   return (
     <>
-      <div>
-        good {feedback.good}
-      </div>
-      <div>
-        neutral {feedback.neutral}
-      </div>
-      <div>
-        bad {feedback.bad}
-      </div>
+      <table>
+        <tbody>
+          <tr>
+            <td>good</td>
+            <td>{feedback.good}</td>
+          </tr>
+          <tr>
+            <td>neutral</td>
+            <td>{feedback.neutral}</td>
+          </tr>
+          <tr>
+            <td>bad</td>
+            <td>{feedback.bad}</td>
+          </tr>
+          <tr>
+            <td>all</td>
+            <td>{sum}</td>
+          </tr>
+          <tr>
+            <td>average</td>
+            <td>{average}</td>
+          </tr>
+          <tr>
+            <td>positive</td>
+            <td>{positive} %</td>
+          </tr>
+        </tbody>
+      </table>
     </>
   )
 }
