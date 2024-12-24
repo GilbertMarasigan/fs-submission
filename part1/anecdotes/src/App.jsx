@@ -44,21 +44,18 @@ const App = () => {
     'The only way to go fast, is to go well.'
   ]
 
+  const maxNumber = anecdotes.length
+  const initialPoints = Array.from({ length: maxNumber }, (_, index) => index).reduce((acc, index) => {
+    acc[index] = 0;
+    return acc;
+  },
+    {})
+
+
   const [selected, setSelected] = useState(0)
-  const [points, setPoints] = useState({
-    0: 0,
-    1: 0,
-    2: 0,
-    3: 0,
-    4: 0,
-    5: 0,
-    6: 0,
-    7: 0
-  })
+  const [points, setPoints] = useState(initialPoints)
 
   console.log('points: ', points)
-
-  const maxNumber = anecdotes.length
 
   const randomIndex = () => {
     const randomNumber = Math.floor(Math.random() * (maxNumber - 0) + 0);
