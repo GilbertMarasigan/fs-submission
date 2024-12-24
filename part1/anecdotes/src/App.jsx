@@ -51,7 +51,6 @@ const App = () => {
   },
     {})
 
-
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState(initialPoints)
 
