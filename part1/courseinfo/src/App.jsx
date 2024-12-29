@@ -1,7 +1,5 @@
 
 
-//const totalExercises = objParts.reduce((sum, objParts) => sum + objParts.exercises, 0);
-
 const Header = ({course}) => {
   return (
     <h1>{course.name}</h1>
@@ -14,12 +12,14 @@ const Content = ({course}) => {
   )
 }
 
-
 const Course = ({ course }) => {
+  const totalExercises = course.parts.reduce((sum, part) => sum + part.exercises, 0);
+  console.log('totalExercises', totalExercises);
   return (
     <div>
       <Header course={course} />
       <Content course={course} />
+      <p style={{fontWeight: "bold"}}>total of {totalExercises} exercises</p>
     </div>
   )
 }
@@ -44,6 +44,11 @@ const App = () => {
         part: 'State of a component',
         exercises: 14,
         id: 3
+      },
+      {
+        part: 'Redux',
+        exercises: 11,
+        id: 4
       }
     ]
   }
