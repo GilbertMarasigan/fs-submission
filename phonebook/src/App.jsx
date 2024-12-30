@@ -6,14 +6,18 @@ const App = () => {
     { name: 'Arto Hellas' }
   ])
   const [newName, setNewName] = useState('')
-  
+
   const addPerson = (event) => {
     event.preventDefault()
-    console.log('event: ', event)
+
     const newNameObject = {
       name: newName
     }
-    setPersons(persons.concat(newNameObject))
+
+    // check for duplicates
+    const countMatchingPerson = persons.filter(person => person.name === newName).length
+    countMatchingPerson === 1 ? alert(`${newName} is already added to phonebook`) :     setPersons(persons.concat(newNameObject))
+    
   }
 
   const handleNameChange = (event) => {
@@ -21,12 +25,14 @@ const App = () => {
     setNewName(event.target.value)
   }
 
+
+
   return (
     <div>
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
         <div>
-          name: <input onChange={handleNameChange}/>
+          name: <input onChange={handleNameChange} />
         </div>
         <div>
           <button type='submit'>add</button>
