@@ -1,4 +1,4 @@
-const Persons = ({ persons, search }) => {
+const Persons = ({ persons, search, handleDelete }) => {
 
     let numbersObject = persons
 
@@ -6,7 +6,10 @@ const Persons = ({ persons, search }) => {
         numbersObject = persons.filter(person => person.name.toLowerCase().includes(search.toLowerCase()))
     }
 
-    return numbersObject.map((person) => <div key={person.name}>{person.name} {person.number}</div>)
+    return numbersObject.map((person) => 
+    <div key={person.name}>{person.name} {person.number}
+    <button onClick={() => handleDelete(person)}>delete</button>
+    </div>)
 }
 
 export default Persons

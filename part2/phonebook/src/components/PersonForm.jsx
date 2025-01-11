@@ -20,9 +20,26 @@ const PersonForm = ({ persons, setPersons }) => {
         }
 
         // check for duplicates
-        const countMatchingPerson = persons.filter(person => person.name === newName).length
-        if (countMatchingPerson === 1) {
-            alert(`${newName} is already added to phonebook`)
+        const matchedPerson = persons.find(person => person.name === newName)
+
+        if (matchedPerson) {
+            if(window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)){
+                const updatePerson = {
+                    ...matchedPerson,
+                    number: newNumber
+                }
+
+                personService
+                    .replaceNumber(matchedPerson.id, updatePerson)
+                    .then(returnedPerson => {
+                        setPersons(persons.map(person => 
+                            person.id === updatePerson.id
+                                ? returnedPerson : person
+                        ))
+                        setNewName('')
+                        setNewNumber('')
+                    })
+            }
         }
         else {
 

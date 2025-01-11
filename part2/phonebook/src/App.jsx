@@ -19,6 +19,18 @@ const App = () => {
 
   const [search, setSearch] = useState('')
 
+  const handleDelete = (person) => {
+    console.log('handleDelete of id: ', person.id)
+    if (window.confirm(`Delete ${person.name}`)) {
+      personService
+        .deletePerson(person.id)
+        .then(returnedData => {
+          console.log('returnedData.id',returnedData.id)
+          setPersons(persons.filter(person => person.id !== returnedData.id))
+        })
+    }
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -26,7 +38,7 @@ const App = () => {
       <h2>Add a new</h2>
       <PersonForm persons={persons} setPersons={setPersons} />
       <h2>Numbers</h2>
-      <Persons persons={persons} search={search} />
+      <Persons persons={persons} search={search} handleDelete={handleDelete} />
     </div>
   )
 }
