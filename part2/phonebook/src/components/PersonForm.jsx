@@ -1,10 +1,18 @@
 import { useState } from "react"
 import personService from "../services/persons"
 
-const PersonForm = ({ persons, setPersons }) => {
+const PersonForm = ({ persons, setPersons, message, setMessage}) => {
 
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
+
+    const refreshList = () => {
+        personService
+            .getAll()
+            .then(refreshedPersons => {
+                setPersons(refreshedPersons)
+            })
+    }
 
     const handleInputChange = (event) => {
         event.target.id === 'name' ? setNewName(event.target.value) : setNewNumber(event.target.value)
@@ -39,6 +47,16 @@ const PersonForm = ({ persons, setPersons }) => {
                         setNewName('')
                         setNewNumber('')
                     })
+                    .catch(error => {
+                        console.log('fail')
+                        setMessage(`${newName} was already deleted from server`)
+                        setTimeout(() => {
+                            setMessage(null)
+                        }, 5000)
+                        refreshList()
+                        setNewName('')
+                        setNewNumber('')
+                    })
             }
         }
         else {
@@ -50,6 +68,10 @@ const PersonForm = ({ persons, setPersons }) => {
                     setPersons(persons.concat(returnedPerson))
                     setNewName('')
                     setNewNumber('')
+                    setMessage(`Added ${returnedPerson.name}`)
+                    setTimeout(() => {
+                        setMessage(null)
+                    }, 5000)
                 })
                 
         }

@@ -16,8 +16,6 @@ const Button = ({ handleClick, text }) => {
 
 const Stat = ({ feedback }) => {
 
-  console.log({ feedback })
-
   const sum = Object.values(feedback).reduce((acc, value) => acc + value, 0)
   const average = sum / 3
   const positive = (sum !== 0) ? (feedback.good / sum) * 100 : null
